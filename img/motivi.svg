@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144 64" fill="none">
+  <view id="raggi" viewBox="0 0 46 47"/>
+  <view id="onda" viewBox="48 0 96 56"/>
+  <view id="fiore" viewBox="0 48 46 46"/>
+  <path d="M7 27l12 10M15 13l11 14M29 6l6 14" stroke="#ec90ac" stroke-width="5" stroke-linecap="round"/>
+  <path d="M54 35c12 17 19-28 33-13 6 7 6 16 12 11" stroke="#f29c9b" stroke-width="7" stroke-linecap="round"/>
+  <path d="m109 45 18-32m-3-5-5 9c-3 5 3 8 7 3l5-8m-4-2-6 10m-1 30 14-24c6-5 9-12 7-14-6 0-12 11-9 13l2 1" stroke="#ce617d" stroke-width="2" stroke-linecap="round"/>
+  <path d="M23 55v31M12 59l22 23m4-12H8m25-11L13 82" stroke="#ec90ac" stroke-width="6" stroke-linecap="round"/>
+</svg>
