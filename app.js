@@ -17,17 +17,17 @@ const cities = [
   ['tirana', 'Tirana', 'Dom 22 nov', 'Alla scoperta della capitale, tra arte, storia e mercati.']
 ];
 const attractions = [
-  ['bunkart', 'Bunk’Art 2', 'Un ex bunker trasformato in museo, dedicato alla storia del regime comunista albanese.', 'BunkArt 2 Tirana'],
-  ['skanderbeg', 'Piazza Skanderbeg', 'La piazza centrale di Tirana, con il monumento equestre e la Torre dell’Orologio nelle vicinanze.', 'Skanderbeg Square Tirana'],
-  ['pazari', 'Pazari i Ri', 'Il mercato dove fare un giro tra banchi di frutta, spezie e locali.', 'Pazari i Ri Tirana'],
-  ['piramide', 'La Piramide', 'Un edificio simbolo della città, ripensato come spazio contemporaneo.', 'Pyramid of Tirana'],
-  ['moschea', 'La Grande Moschea', 'La Grande Moschea di Tirana, conosciuta anche come moschea Namazgah.', 'Namazgah Mosque Tirana'],
-  ['parco', 'Grand Park', 'Una pausa nel verde lungo il lago artificiale, a sud del centro.', 'Grand Park Tirana']
+  ['bunkart', 'Bunk’Art 2', 'Un ex bunker trasformato in museo, dedicato alla storia del regime comunista albanese.', 'BunkArt 2 Tirana', 'L’ingresso a cupola è tappezzato di ritratti. Dalle scale si scende nei corridoi dell’ex rifugio del Ministero dell’Interno.'],
+  ['skanderbeg', 'Piazza Skanderbeg', 'La piazza centrale di Tirana, con il monumento equestre e la Torre dell’Orologio nelle vicinanze.', 'Skanderbeg Square Tirana', 'Guardate verso la Torre dell’Orologio: accanto c’è la moschea di Et’hem Bey, riconoscibile dal suo portico ad archi.'],
+  ['pazari', 'Pazari i Ri', 'Il mercato dove fare un giro tra banchi di frutta, spezie e locali.', 'Pazari i Ri Tirana', 'Pazari i Ri significa «mercato nuovo». Sotto la tettoia si passa dai banchi di frutta e verdura ai locali che circondano la piazza.'],
+  ['piramide', 'La Piramide', 'Un edificio simbolo della città, ripensato come spazio contemporaneo.', 'Pyramid of Tirana', 'Era un museo dedicato a Enver Hoxha. Oggi le gradinate sui fianchi permettono di salire sul tetto per vedere Tirana dall’alto.'],
+  ['moschea', 'La Grande Moschea', 'La Grande Moschea di Tirana, conosciuta anche come moschea Namazgah.', 'Namazgah Mosque Tirana', 'La cupola centrale e i quattro minareti riprendono lo stile delle grandi moschee ottomane. Provate a inquadrarli tutti dal piazzale.'],
+  ['parco', 'Grand Park', 'Una pausa nel verde lungo il lago artificiale, a sud del centro.', 'Grand Park Tirana', 'Il lago al centro del parco è artificiale. Cercate la fontana sull’acqua durante la passeggiata lungo la riva.']
 ];
 const restaurants = [
-  ['tymi', 'Tymi', 'Cucina tradizionale albanese in un’atmosfera informale.', 'Tymi Tirana'],
-  ['suku', 'Gjelltore SaUku', 'Piatti semplici e casalinghi.', 'Gjelltore SaUku Tirana'],
-  ['zgara', 'Zgara Supreme 2', 'Carne alla griglia e specialità locali.', 'Zgara Supreme 2 Tirana']
+  ['tymi', 'Tymi', 'Grigliate albanesi e birra in un locale informale.', 'Tymi Tirana', 'Qui la griglia si accompagna alla birra. Un misto di carne con patate e insalata è una buona idea se volete ordinare qualcosa da dividere.'],
+  ['suku', 'Gjelltore SaUku', 'Cucina casalinga albanese, con zuppe e piatti in terracotta.', 'Gjelltore SaUku Tirana', 'Una cucina casalinga da provare con la tavë dheu, una specialità servita in un tegame di terracotta. Il pane è perfetto per fare scarpetta.'],
+  ['zgara', 'Zgara Supreme 2', 'Spiedini, salsicce e altri tagli alla griglia.', 'Zgara Supreme 2 Tirana', 'Il pezzo forte è la griglia: spiedini, salsicce e tagli di carne. Potete prendere più assaggi da condividere con un contorno.']
 ];
 const krujaStops = [
   ['Il Castello di Kruja', 'Passeggiate lungo le mura per ammirare il panorama sulla valle.', 'Kruja Castle'],
@@ -53,6 +53,9 @@ const mapLink = query => '<a class="map" href="' + maps(query) + '">Apri in Goog
 const button = (id, label) => '<a class="cta" href="#' + id + '">' + label + '</a>';
 const back = (id, label) => '<a class="back" href="#' + id + '">‹ &nbsp;' + label + '</a>';
 const intro = (title, copy = '') => '<div class="intro"><h1>' + title + '</h1>' + (copy ? '<p>' + copy + '</p>' : '') + '</div>';
+const photoWithNote = (file, alt, label, note) =>
+  '<figure class="place-photo">' + img(file, alt, false) + '<figcaption><strong>' + label +
+  '</strong><p>' + note + '</p></figcaption></figure>';
 const grid = (cards, kind = '') => '<div class="grid ' + kind + '">' + cards.join('') + '</div>';
 const card = ({href, photo, title, copy, tag, action = 'Scopri la tappa'}) =>
   '<a class="card" href="' + href + '">' + img(photo, '', true, true) + '<div class="pad">' +
@@ -85,15 +88,16 @@ function city(id) {
   const [, title, date] = cities.find(([key]) => key === id);
   const copy = id === 'kruja' ? 'Un borgo storico con un castello, un bazar tradizionale e un museo dedicato a Skanderbeg.' :
     'La capitale dell’Albania, dove storia e architettura contemporanea si incontrano tra piazze, mercati e parchi.';
+  const note = id === 'kruja' ? 'Nel Quattrocento la fortezza di Kruja fu uno dei centri della resistenza guidata da Skanderbeg contro gli Ottomani.' :
+    'In piazza Skanderbeg potete vedere una moschea storica, una torre dell’orologio e il grande mosaico del Museo Storico Nazionale nello stesso giro.';
   const top = back('esperienze', 'Torna alle esperienze') + '<div class="detail-layout"><div><span class="tag">' + date +
-    '</span>' + intro(title, copy) + '</div>' + img(id, 'Veduta di ' + title, false) + '</div>';
+    '</span>' + intro(title, copy) + '</div>' + photoWithNote(id, 'Veduta di ' + title, 'Curiosità', note) + '</div>';
   if (id === 'kruja') {
     return top + '<h2 class="section-title">Cosa vedere</h2>' +
-      krujaStops.map(([name, description, query]) => disclose(name, '<p>' + description + '</p>' + mapLink(query))).join('') +
-      '<aside class="panel"><h2>✦ Curiosità</h2><p>A Kruja, il castello e il museo raccontano la resistenza guidata da Skanderbeg contro l’Impero ottomano nel XV secolo.</p></aside>';
+      krujaStops.map(([name, description, query]) => disclose(name, '<p>' + description + '</p>' + mapLink(query))).join('');
   }
-  return top + '<h2 class="section-title">Cosa vedere</h2>' + grid(attractions.map(([id, title]) =>
-    card({href: '#' + id, photo: id, title})), 'three');
+  return top + '<h2 class="section-title">Cosa vedere</h2>' + grid(attractions.map(([id, title, copy]) =>
+    card({href: '#' + id, photo: id, title, copy})), 'three');
 }
 
 const views = {
@@ -107,9 +111,9 @@ const views = {
     grid(restaurants.map(([id, title, copy]) => card({href: '#' + id, photo: id, title, copy, action: 'Vedi il locale'})), 'three')
 };
 for (const [group, parent, label] of [[attractions, 'tirana', 'Torna a Tirana'], [restaurants, 'food', 'Torna a dove mangiare']]) {
-  for (const [id, title, description, query] of group) {
+  for (const [id, title, description, query, note] of group) {
     views[id] = () => back(parent, label) + '<div class="detail-layout"><div>' + intro(title, description) +
-      mapLink(query) + '</div>' + img(id, '', false) + '</div>';
+      mapLink(query) + '</div>' + photoWithNote(id, '', parent === 'food' ? 'Cosa assaggiare' : 'Curiosità', note) + '</div>';
   }
 }
 
