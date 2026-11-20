@@ -58,5 +58,10 @@ const photoCredits = {
     "label": "Zgara Supreme 2",
     "url": "https://www.tripadvisor.com/Restaurant_Review-g294446-d11794341-Reviews-Zgara_Supreme_2-Tirana_Tirana_County.html",
     "credit": ""
+  },
+  "pelikan": {
+    "label": "Pasticeri Pelikan Plazh",
+    "url": "https://commons.wikimedia.org/wiki/File:Restaurant_Pelican_Durr%C3%ABs_Albania_2018_1.jpg",
+    "credit": "Karelj · CC BY-SA 4.0 · ridimensionata e ritagliata nella pagina"
   }
 };

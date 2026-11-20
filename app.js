@@ -27,7 +27,8 @@ const attractions = [
 const restaurants = [
   ['tymi', 'Tymi', 'Grigliate albanesi e birra in un locale informale.', 'Tymi Tirana', 'Qui la griglia si accompagna alla birra. Un misto di carne con patate e insalata è una buona idea se volete ordinare qualcosa da dividere.'],
   ['suku', 'Gjelltore SaUku', 'Cucina casalinga albanese, con zuppe e piatti in terracotta.', 'Gjelltore SaUku Tirana', 'Una cucina casalinga da provare con la tavë dheu, una specialità servita in un tegame di terracotta. Il pane è perfetto per fare scarpetta.'],
-  ['zgara', 'Zgara Supreme 2', 'Spiedini, salsicce e altri tagli alla griglia.', 'Zgara Supreme 2 Tirana', 'Il pezzo forte è la griglia: spiedini, salsicce e tagli di carne. Potete prendere più assaggi da condividere con un contorno.']
+  ['zgara', 'Zgara Supreme 2', 'Spiedini, salsicce e altri tagli alla griglia.', 'Zgara Supreme 2 Tirana', 'Il pezzo forte è la griglia: spiedini, salsicce e tagli di carne. Potete prendere più assaggi da condividere con un contorno.'],
+  ['pelikan', 'Pasticeri Pelikan Plazh', 'Pasticceria e gelateria sul litorale di Durazzo (Durrës), per una pausa fuori itinerario.', 'Pastiçeri Pelikan Plazh, Durrës, Albania', 'Al banco trovate pasticcini, monoporzioni e gelati. Se passate dal litorale di Durazzo, potete fermarvi per un caffè e qualcosa di dolce.', 'Durazzo · Tappa extra']
 ];
 const krujaStops = [
   ['Il Castello di Kruja', 'Passeggiate lungo le mura per ammirare il panorama sulla valle.', 'Kruja Castle'],
@@ -63,8 +64,8 @@ const card = ({href, photo, title, copy, tag, action = 'Scopri la tappa'}) =>
   (copy ? '<p>' + copy + '</p>' : '') + '<span class="card-action">' + action + '</span></div></a>';
 const dayCards = (tags = true) => grid(cities.map(([id, title, tag, copy]) =>
   card({href: '#' + id, photo: id, title, copy, tag: tags ? tag : ''})), 'days');
-const fact = (symbol, title, first, second) => '<article class="fact">' + icon(symbol) + '<strong>' + title +
-  '</strong><span>' + first + '</span><span>' + second + '</span></article>';
+const fact = (symbol, title, ...lines) => '<article class="fact">' + icon(symbol) + '<strong>' + title +
+  '</strong>' + lines.map(line => '<span>' + line + '</span>').join('') + '</article>';
 const disclose = (title, content) => '<details><summary>' + title + '</summary><div>' + content + '</div></details>';
 
 function home() {
@@ -74,7 +75,7 @@ function home() {
     '</div><div class="postcard">' + img('tirana-hero', 'Veduta di Tirana', false) +
     '<span class="tape" aria-hidden="true"></span><span class="stamp" aria-hidden="true">🇦🇱</span></div></section>' +
     '<section class="facts" aria-label="Il viaggio in breve">' +
-    fact('plane', 'Partenza', 'Sab 21 nov · 08:50', 'Milano Malpensa (T1)') +
+    fact('plane', 'Partenza', 'Sab 21 nov · 08:50', 'Milano Malpensa (T1)', 'Arrivo 10:45 · Tirana (TIA)') +
     fact('plane', 'Ritorno', 'Dom 22 nov · 20:00 · TIA', 'Arrivo 22:05 · MXP (T1)') +
     fact('group', 'Le Vigliacche', 'Chupi, Elli, FDB,', 'Fedabi, Mati, Sara ♡') +
     fact('itinerary', 'Durata', '2 giorni', '1 weekend insieme') + '</section>' +
@@ -107,8 +108,8 @@ const views = {
   esperienze: () => intro('Esperienze', 'Castelli, bazar e passeggiate tra Kruja e Tirana.') + dayCards(false),
   kruja: () => city('kruja'),
   tirana: () => city('tirana'),
-  food: () => intro('Dove mangiare', 'Tre idee per assaggiare la cucina albanese a Tirana.') +
-    grid(restaurants.map(([id, title, copy]) => card({href: '#' + id, photo: id, title, copy, action: 'Vedi il locale'})), 'three')
+  food: () => intro('Dove mangiare', 'Tre posti dove mangiare a Tirana e una pausa dolce facoltativa a Durazzo.') +
+    grid(restaurants.map(([id, title, copy, , , tag]) => card({href: '#' + id, photo: id, title, copy, tag, action: 'Vedi il locale'})), 'three')
 };
 for (const [group, parent, label] of [[attractions, 'tirana', 'Torna a Tirana'], [restaurants, 'food', 'Torna a dove mangiare']]) {
   for (const [id, title, description, query, note] of group) {
